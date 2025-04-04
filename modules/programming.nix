@@ -23,6 +23,9 @@
     (jdk17.overrideAttrs (oldAttrs: {
       meta.priority = 10;
     }))
+    (jdk8.overrideAttrs (oldAttrs: {
+      meta.priority = 10;
+    }))
     (jdk22.overrideAttrs (oldAttrs: {
       meta.priority = 10;
     }))
@@ -30,6 +33,7 @@
     # client displayManager
 
     dotnetCorePackages.sdk_8_0_1xx
-
+    
+    gitFull
   ];
 }

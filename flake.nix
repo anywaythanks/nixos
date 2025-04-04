@@ -29,7 +29,8 @@
           #                ];
           allowUnfree = true;
         };
-        nixpkgs.overlays = [ taffybar.overlay ];
+        
+        #nixpkgs.overlays = [ taffybar.overlays.default ];
         # Let Home Manager install and manage itself.
         programs.home-manager.enable = true;
         home.stateVersion = "24.05";
@@ -46,7 +47,7 @@
         home.homeDirectory = "/home/any";
         home.username = "any";
         imports = [
-          ./modules/discord
+          # ./modules/discord
 
           # Desktop Environment
           ./modules/desktop-environment.nix
@@ -70,6 +71,7 @@
           ./modules/rofi
           ./modules/taffybar
           ./modules/xidlehook
+           # ./modules/docker
           ./modules/xmonad
         ];
       };

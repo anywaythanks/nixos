@@ -7,5 +7,6 @@
       ./bootEFI.nix
       ./users.nix
       ./packages.nix
+      ./work.nix
     ];
 }

@@ -4,18 +4,18 @@
 
 { config, lib, pkgs, ... }:
 let
-    root_dot_name = /default.nix;
+  root_dot_name = /default.nix;
 in
 {
 
-    imports =
+  imports =
     [
       ./hardware-configuration.nix
       (./base + root_dot_name)
     ];
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
-    services.openssh.enable = true;
-    system.stateVersion = "24.05";# Don't change it bro
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
+  services.openssh.enable = true;
+  system.stateVersion = "24.05"; # Don't change it bro
 }
 

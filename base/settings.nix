@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 {
   time.timeZone = "Europe/Moscow";
-  networking = {
-    hostName = "ZFS-Nixos";
-    hostId = "a1c30cfd";
-  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -29,9 +25,9 @@
     autoRepeatDelay = 250;
     autoRepeatInterval = 35;
     #мб нинужна
-    displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --mode 1280x1024
-    '';
+    # displayManager.setupCommands = ''
+    #   ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --mode 1280x1024
+    # '';
     #DM SETTING
     desktopManager.session = [{
       name = "home-manager";
@@ -56,10 +52,30 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  services.openvpn.servers = {
+    workVPN = {
+      config = '' 
+        config /home/any/vpns/profile-work.ovpn
+        auth-user-pass /home/any/vpns/work.cred
+        '';
+      autoStart = true;
+      updateResolvConf = true;
+    };
+  };
   # вмка
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  users.extraGroups.vboxusers.members = [ "any" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
+  # users.extraGroups.vboxusers.members = [ "any" ];
+
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   #драйвера
   hardware = {
     opengl = {
@@ -75,24 +91,12 @@
     };
     pulseaudio.enable = true;
   };
-  networking.wireless.enable = true;
 
-  
-  #бдшечки
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "applec" "anyway" ];
-    ensureUsers = [
-      {
-        name = "anyway";
-      }
-    ];
-
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-      host  all       all     127.0.0.1/32   trust
-      host  all       all     ::1/128        trust
-    '';
+  #Тырнет
+  # networking.wireless.enable = true;
+  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "ZFS-Nixos";
+    hostId = "a1c30cfd";
   };
 }

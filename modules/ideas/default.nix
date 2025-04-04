@@ -2,17 +2,17 @@
   home.packages = with pkgs; [
     # idea-community
     (jetbrains.idea-ultimate.overrideAttrs rec {
-      version = "2024.1.4";
+      version = "2024.3.5";
       src = fetchurl {
         url = "https://download-cf.jetbrains.com/idea/ideaIU-${version}.tar.gz";
-        sha256 = "cda20bbbc052c2b8e87ea8607235ee0f7b5775728e8648c0a603889a3efa685f";
+        sha256 = "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1";
       };
     })
-    (jetbrains.rider.overrideAttrs rec {
-      version = "2024.1.4";
+    (jetbrains.webstorm.overrideAttrs rec {
+      version = "2024.3.5";
       src = fetchurl {
-        url = "https://download-cf.jetbrains.com/rider/JetBrains.Rider-${version}.tar.gz";
-        sha256 = "e277c2636383c023f00bd7833be86ffe1f8f67cf98cb719bbb4293aa42ba8ad0";
+        url = "https://download-cf.jetbrains.com/webstorm/WebStorm-${version}.tar.gz";
+        sha256 = "da587d7ca3ebb08f067143e4a6b35f1aa133aa10af7fc365496838006fcd1aed";
       };
     })
   ];
@@ -21,7 +21,7 @@
     Install.WantedBy = [ "timers.target" ];
     Timer =
       {
-        OnCalendar = "*-*-2,18 15:00:00";
+        OnCalendar = "*-*-01 15:00:00";
         Persistent = "true";
         Unit = "remover_licens";
       };
