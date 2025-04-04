@@ -1,0 +1,13 @@
+{
+    "haskell.serverExecutablePath": "haskell-language-server",
+    "haskell.manageHLS": "PATH",
+    // "haskell.trace.client": "debug",
+
+    "commentTranslate.targetLanguage": "ru",
+
+    "files.autoSave": "onWindowChange",
+    "workbench.colorTheme": "Darcula",
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true
+}

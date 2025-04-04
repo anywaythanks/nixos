@@ -1,0 +1,4 @@
+/.vscode/
+/dist-newstyle/
+/.direnv/flake-inputs/
+/.direnv/flake-profile-*
