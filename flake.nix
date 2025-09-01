@@ -37,6 +37,7 @@
         imports = [
           ./modules/bat
           ./modules/cli.nix
+          ./modules/neovim/default.nix
           ./modules/fonts.nix
           ./modules/programming.nix
           ./modules/zsh

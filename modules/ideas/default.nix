@@ -17,27 +17,27 @@
     })
   ];
 
-  systemd.user.timers."remover_licens" = {
-    Install.WantedBy = [ "timers.target" ];
-    Timer =
-      {
-        OnCalendar = "*-*-01 15:00:00";
-        Persistent = "true";
-        Unit = "remover_licens";
-      };
-  };
+  # systemd.user.timers."remover_licens" = {
+  #   Install.WantedBy = [ "timers.target" ];
+  #   Timer =
+  #     {
+  #       OnCalendar = "*-*-01 15:00:00";
+  #       Persistent = "true";
+  #       Unit = "remover_licens";
+  #     };
+  # };
 
 
-  systemd.user.services."remover_licens" = {
-    Unit = {
-      Description = "Remove license jetbrains product";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      Type = "exec";
-      ExecStart = ./remove_license.sh;
-    };
-  };
+  # systemd.user.services."remover_licens" = {
+  #   Unit = {
+  #     Description = "Remove license jetbrains product";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  #   Service = {
+  #     Type = "exec";
+  #     ExecStart = ./remove_license.sh;
+  #   };
+  # };
 }
