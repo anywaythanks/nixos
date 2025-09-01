@@ -28,7 +28,7 @@
           #                  "vscode-extension-MS-python-vscode-pylance"
           #                ];
           allowUnfree = true;
-          allowBroken = true; # TODO: Del.. maybe
+          # allowBroken = true; # TODO: Del.. maybe
         };
         
         #nixpkgs.overlays = [ taffybar.overlays.default ];
@@ -54,7 +54,7 @@
           # Desktop Environment
           ./modules/desktop-environment.nix
           ./modules/betterlockscreen
-          ./modules/deadd
+          # ./modules/deadd
           ./modules/eww
           ./modules/ideas
           ./modules/libreoffice

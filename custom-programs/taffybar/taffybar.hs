@@ -25,7 +25,7 @@ import System.Taffybar.SimpleConfig
   ( Position (Top),
     SimpleTaffyConfig (..),
     defaultSimpleTaffyConfig,
-    toTaffyConfig,
+    toTaffybarConfig,
     usePrimaryMonitor,
   )
 import System.Taffybar.Util ()
@@ -63,7 +63,7 @@ main = startTaffybar exampleTaffybarConfig
 
 exampleTaffybarConfig :: TaffybarConfig
 exampleTaffybarConfig =
-  withLogServer $ withToggleServer $ toTaffyConfig myConfig
+  withLogServer $ withToggleServer $ toTaffybarConfig myConfig
 
 myConfig :: SimpleTaffyConfig
 myConfig =
