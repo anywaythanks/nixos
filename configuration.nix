@@ -16,6 +16,6 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enabling flakes
   services.openssh.enable = true;
-  system.stateVersion = "24.05"; # Don't change it bro
+  system.stateVersion = "25.05"; # Don't change it bro
 }
 
