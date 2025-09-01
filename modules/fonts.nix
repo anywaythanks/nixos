@@ -9,7 +9,8 @@
         powerline-symbols
         corefonts
         vistafonts
-        (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" "Hack" ]; })
+        nerd-fonts.symbols-only
+        nerd-fonts.hack
     ];
     xresources = {
         properties = {

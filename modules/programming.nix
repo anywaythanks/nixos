@@ -26,7 +26,7 @@
     (jdk8.overrideAttrs (oldAttrs: {
       meta.priority = 10;
     }))
-    (jdk22.overrideAttrs (oldAttrs: {
+    (jdk21.overrideAttrs (oldAttrs: {
       meta.priority = 10;
     }))
     #    maven

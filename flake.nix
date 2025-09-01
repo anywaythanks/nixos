@@ -28,6 +28,7 @@
           #                  "vscode-extension-MS-python-vscode-pylance"
           #                ];
           allowUnfree = true;
+          allowBroken = true; # TODO: Del.. maybe
         };
         
         #nixpkgs.overlays = [ taffybar.overlays.default ];

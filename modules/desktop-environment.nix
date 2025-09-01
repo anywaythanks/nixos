@@ -26,13 +26,13 @@
     # Openvpn interop
     #    gnome3.networkmanager-openvpn gtk
     glib
-    gnome.dconf-editor
+    dconf-editor
     dconf
     # Screenshot utility status
     # flameshot
   
     #bittorrent
-    transmission-qt
+    transmission_4-qt
     # Sound control panel
     pavucontrol
 
@@ -40,14 +40,13 @@
     vlc
     # System tray (Kind of a hack atm)
     # Need polybar to support this as a first class module
-    gnome3.nautilus
+    nautilus
     gnomeExtensions.system-monitor
     gtk3
     
     networkmanagerapplet
     nm-tray
     pasystray
-    psensor
     kitty
     # Utility to open present directory (Only use it with xmonad to open
     # terminal in same directory)
