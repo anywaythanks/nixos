@@ -12,6 +12,7 @@
 
       ripgrep # grep
 
-      home-manager 
+      home-manager
+      gitFull
     ];
 }
