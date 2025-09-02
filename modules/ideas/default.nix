@@ -36,7 +36,7 @@ let
     let
       vmoptionsFile = pkgs.writeTextFile {
         name = "${name}-vmoptions";
-        text = value.vmoptions + "\n\n-javaagent:${ja-netfilter-jar}=jetbrains";
+        text = value.vmoptions + "\n\n-javaagent:${xdg.configFile}/${name}/ja-netfilter.jar=jetbrains";#"\n\n-javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains";
       };
     in pkgs.runCommand "${name}-wrapped" {
       nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -55,4 +55,15 @@ let
     '') jb-products;
   keys.url =
     "https://ipfs.io/ipfs/bafybeih65no5dklpqfe346wyeiak6wzemv5d7z2ya7nssdgwdz4xrmdu6i/";
-in { home.packages = lib.attrValues wrappedJBProducts; }
+in { 
+  home.packages = lib.attrValues wrappedJBProducts;
+
+  #in function?
+  xdg.configFile."idea-ultimate/ja-netfilter.jar".source = ./ja-netfilter.jar;
+  xdg.configFile."idea-ultimate/config-jetbrains".source = ./config-jetbrains;
+  xdg.configFile."idea-ultimate/plugins-jetbrains".source = ./plugins-jetbrains;
+  xdg.configFile."webstorm/ja-netfilter.jar".source = ./ja-netfilter.jar;
+  xdg.configFile."webstorm/config-jetbrains".source = ./config-jetbrains;
+  xdg.configFile."webstorm/plugins-jetbrains".source = ./plugins-jetbrains;
+  
+ }
