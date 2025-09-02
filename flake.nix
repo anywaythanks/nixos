@@ -38,7 +38,6 @@
         imports = [
           ./modules/bat
           ./modules/cli.nix
-          ./modules/neovim/default.nix
           ./modules/fonts.nix
           ./modules/programming.nix
           ./modules/zsh
@@ -52,6 +51,7 @@
           # ./modules/discord
 
           # Desktop Environment
+          ./modules/neovim
           ./modules/desktop-environment.nix
           ./modules/betterlockscreen
           # ./modules/deadd

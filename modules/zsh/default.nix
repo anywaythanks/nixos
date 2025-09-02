@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
@@ -18,7 +18,7 @@
         [ "git" "sudo" ];#"vi-mode" "web-search" "aws" "terraform" "nomad" "vault" ];
     };
 #      ${builtins.readFile ../../.secrets/env-vars.sh}
-    initExtraBeforeCompInit = ''
+    initContent =  lib.mkOrder 550 ''
       ${builtins.readFile ./session_variables.zsh}
       ${builtins.readFile ./functions.zsh}
 

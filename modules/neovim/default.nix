@@ -3,5 +3,5 @@
     xclip # For X11 clipboard support
   ];
 
-  # xdg.configFile."nvim/init.vim".source = ./init.vim;
+  xdg.configFile."nvim/init.vim".source = ./init.vim;
 }
