@@ -3,7 +3,7 @@
     file.".config/Code/User/settings.json".source = ./settings.json;
     packages = with pkgs; [
       # haskell-language-server
-      nixfmt
+      nixfmt-classic
     ];
   };
   programs.vscode = {

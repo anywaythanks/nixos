@@ -35,8 +35,8 @@
           "*.color14" = colorscheme.bright-cyan;
           "*.color15" = colorscheme.bright-white;
 
-          "XTerm*font" = "xft:Hack Nerd Font:pixelsize=12";
-          "URxvt*font" = "xft:Hack Nerd Font:style=Regular:size=12";
+          "XTerm*font" = "xft:Hack Nerd Font Mono:pixelsize=12";
+          "URxvt*font" = "xft:Hack Nerd Font Mono:pixelsize=12";
           "*.internalBorder" = 4;
 
           "Xft.dpi" = 96;
