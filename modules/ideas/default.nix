@@ -16,7 +16,7 @@ let
     };
 
     webstorm = {
-      short-name = "webstorm";
+      short-name = "webide";
       pkg = (pkgs.jetbrains.webstorm.overrideAttrs (oldAttrs: rec {
         version = "2024.3.5";
         src = pkgs.fetchurl {
@@ -30,20 +30,13 @@ let
     };
   };
 
-  ja-netfilter-jar = pkgs.fetchurl rec {
-    version = "2022.2.0";
-    url =
-      "https://repo1.maven.org/maven2/com/ja-netfilter/ja-netfilter/${version}/ja-netfilter-${version}.jar";
-    sha256 = "1q1lqis52fwp4rb62kgq40av8cggyxrvfp8xl7ncxz7a5y1l2qrm";
-  };
+  ja-netfilter-jar = ./ja-netfilter.jar;
 
   wrappedJBProducts = lib.mapAttrs (name: value:
     let
       vmoptionsFile = pkgs.writeTextFile {
         name = "${name}-vmoptions";
-        text = value.vmoptions + ''
-
-          -javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains'';#-javaagent:${ja-netfilter-jar}=jetbrains
+        text = value.vmoptions + "\n\n-javaagent:${ja-netfilter-jar}=jetbrains";
       };
     in pkgs.runCommand "${name}-wrapped" {
       nativeBuildInputs = [ pkgs.makeWrapper ];
