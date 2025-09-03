@@ -35,8 +35,8 @@ let
   wrappedJBProducts = lib.mapAttrs (name: value:
     let
       vmoptionsFile = pkgs.writeTextFile {
-        name = "${name}-vmoptions";
-        text = value.vmoptions + "\n\n-javaagent:${xdg.configFile}/${name}/ja-netfilter.jar=jetbrains";#"\n\n-javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains";
+        name = "${name}-vmoptions";#hardcode /home/any, use configfile
+        text = value.vmoptions + "\n\n-javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains";#"\n\n-javaagent:/home/any/.conifg/${name}/ja-netfilter.jar=jetbrains";
       };
     in pkgs.runCommand "${name}-wrapped" {
       nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -59,11 +59,11 @@ in {
   home.packages = lib.attrValues wrappedJBProducts;
 
   #in function?
-  xdg.configFile."idea-ultimate/ja-netfilter.jar".source = ./ja-netfilter.jar;
-  xdg.configFile."idea-ultimate/config-jetbrains".source = ./config-jetbrains;
-  xdg.configFile."idea-ultimate/plugins-jetbrains".source = ./plugins-jetbrains;
-  xdg.configFile."webstorm/ja-netfilter.jar".source = ./ja-netfilter.jar;
-  xdg.configFile."webstorm/config-jetbrains".source = ./config-jetbrains;
-  xdg.configFile."webstorm/plugins-jetbrains".source = ./plugins-jetbrains;
+  xdg.configFile."idea-ultimate/ja-netfilter.jar".source = ja-netfilter-jar;
+  # xdg.configFile."idea-ultimate/config-jetbrains".source = ./config-jetbrains;
+  # xdg.configFile."idea-ultimate/plugins-jetbrains".source = ./plugins-jetbrains;
+  # xdg.configFile."webstorm/ja-netfilter.jar".source = ./ja-netfilter.jar;
+  # xdg.configFile."webstorm/config-jetbrains".source = ./config-jetbrains;
+  # xdg.configFile."webstorm/plugins-jetbrains".source = ./plugins-jetbrains;
   
  }

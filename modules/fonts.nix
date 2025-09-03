@@ -12,6 +12,7 @@
         nerd-fonts.symbols-only
         nerd-fonts.hack
     ];
+    fonts.fontconfig.enable = true;
     xresources = {
         properties = {
           "*.foreground" = colorscheme.fg-primary;

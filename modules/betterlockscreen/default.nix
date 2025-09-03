@@ -1,1 +1,3 @@
-{ services.betterlockscreen = { enable = true; }; }
+{
+  #  services.betterlockscreen = { enable = true; }; 
+   }

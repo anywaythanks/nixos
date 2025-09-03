@@ -194,7 +194,7 @@ keysToAdd = launchers ++ multimediaKeys ++ layoutRelated
           spawn "flameshot-gui"
         ),
         ( (myModMask .|. shiftMask, xK_s),
-          spawn "flameshot-gui-d 3000"
+          spawn "~/less/actual/JS/screen.sh"
         ),
         ( (myModMask, xK_p),
           spawn ""

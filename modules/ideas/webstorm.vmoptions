@@ -1,10 +1,10 @@
--Xms128m
--Xmx4096m
--XX:ReservedCodeCacheSize=512m
+-Xms4g
+-Xmx18g
+-XX:ReservedCodeCacheSize=1g
 -XX:+IgnoreUnrecognizedVMOptions
 -XX:+UseG1GC
 -XX:SoftRefLRUPolicyMSPerMB=50
--XX:CICompilerCount=2
+-XX:CICompilerCount=4
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:-OmitStackTraceInFastThrow
 -ea
