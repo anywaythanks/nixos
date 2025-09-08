@@ -10,9 +10,13 @@
       url = "github:taffybar/taffybar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, taffybar, nixpkgs, home-manager }:
+  outputs = { self, taffybar, nixpkgs, home-manager, nixvim }:
     let
       home-common = { lib, ... }: {
         _module.args = {
@@ -48,6 +52,7 @@
         home.homeDirectory = "/home/any";
         home.username = "any";
         imports = [
+          nixvim.homeModules.nixvim
           # ./modules/discord
 
           # Desktop Environment
