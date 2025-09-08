@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   time.timeZone = "Europe/Moscow";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -54,10 +53,10 @@
 
   services.openvpn.servers = {
     workVPN = {
-      config = '' 
+      config = ''
         config /home/any/vpns/profile-work.ovpn
         auth-user-pass /home/any/vpns/work.cred
-        '';
+      '';
       autoStart = true;
       updateResolvConf = true;
     };

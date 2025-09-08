@@ -5,8 +5,8 @@
   htop = "btm";
   ls = "lsd";
   top = "btm";
-  vi = "nvim";
-  vim = "nvim";
+  # vi = "nvim";
+  # vim = "nvim";
   ytop = "btm";
   nix-dev = "nix develop";
   # docker-compose;

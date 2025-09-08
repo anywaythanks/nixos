@@ -35,7 +35,7 @@ let
   wrappedJBProducts = lib.mapAttrs (name: value:
     let
       vmoptionsFile = pkgs.writeTextFile {
-        name = "${name}-vmoptions";#hardcode /home/any, use configfile
+        name = "${name}-vmoptions";#ебаный хардкод, надо будет переделать
         text = value.vmoptions + "\n\n-javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains";#"\n\n-javaagent:/home/any/.conifg/${name}/ja-netfilter.jar=jetbrains";
       };
     in pkgs.runCommand "${name}-wrapped" {
@@ -45,7 +45,7 @@ let
       makeWrapper ${value.pkg}/bin/${name} $out/bin/${name} \
         --set ${lib.toUpper value.short-name}_VM_OPTIONS "${vmoptionsFile}" \
         --set JAVA_HOME "${pkgs.jdk}" \
-        --set PATH "${lib.makeBinPath [ pkgs.jdk ]}:$PATH"
+        --set PATH "${lib.makeBinPath [ pkgs.jdk pkgs.docker ]}:$PATH"
 
       # Copy desktop files if they exist
       if [ -d "${value.pkg}/share" ]; then
@@ -58,7 +58,7 @@ let
 in { 
   home.packages = lib.attrValues wrappedJBProducts;
 
-  #in function?
+  #это все в функцию запихнуть
   xdg.configFile."idea-ultimate/ja-netfilter.jar".source = ja-netfilter-jar;
   # xdg.configFile."idea-ultimate/config-jetbrains".source = ./config-jetbrains;
   # xdg.configFile."idea-ultimate/plugins-jetbrains".source = ./plugins-jetbrains;
