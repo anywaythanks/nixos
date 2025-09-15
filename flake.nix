@@ -40,6 +40,7 @@
         programs.home-manager.enable = true;
         home.stateVersion = "25.05";
         imports = [
+          ./modules/variables.nix
           ./modules/bat
           ./modules/cli.nix
           ./modules/fonts.nix
@@ -62,7 +63,7 @@
           ./modules/eww
           ./modules/ideas
           ./modules/libreoffice
-          ./modules/blender
+          # ./modules/blender
           ./modules/syncthing
           ./modules/posy-cursor
           ./modules/direnv

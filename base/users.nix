@@ -8,15 +8,19 @@ in
     programs.zsh.enable = true;
     users = {
         users.any = {
+            group = "way"; 
             isNormalUser = true;
             description = "user for Any task";
             extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user. hostID
             hashedPassword = hp;
+            uid = 1000;
         };
         users.root = {
             hashedPassword = hp;
         };
     };
-
+    users.groups.way = {
+        gid = 1001; 
+    };
     users.mutableUsers = false;
 }

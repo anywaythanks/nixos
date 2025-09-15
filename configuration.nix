@@ -10,6 +10,7 @@ in
 
   imports =
     [
+      ./modules/variables.nix
       ./hardware-configuration.nix
       (./base + root_dot_name)
     ];

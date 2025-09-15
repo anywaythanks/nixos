@@ -1,17 +1,24 @@
+#https://msucharski.eu/posts/application-isolation-nixos-containers/
+
 { config, lib, pkgs, ... }:
 let
   customJetbrains = import ./custom-jetbrains.nix { inherit lib pkgs; };
   username = "any";
+  group = config.users.users.${username}.group;
   uid = config.users.users.${username}.uid;
-  gid = config.users.users.${username}.gid;
+  gid = config.users.groups.${group}.gid;
 in {
   containers.jetbrains-idea = {
     privateNetwork = true;
     hostAddress = "10.0.0.1";
-    localAddress = "10.0.0.2";
+    localAddress = config.ideNetwork;
 
     # Enable Docker access by binding the socket
     bindMounts = {
+      "/dev/dri"= {
+        hostPath = "/dev/dri";
+        isReadOnly = false;
+      };
       "/var/run/docker.sock" = {
         hostPath = "/var/run/docker.sock";
         isReadOnly = false;
@@ -34,19 +41,34 @@ in {
         hostPath = "/home/${username}/Projects";
         isReadOnly = false;
       };
-    };
 
-    # Share host network for Docker (optional)
-    extraFlags = [ "--network=host" ];
+      "/home/${username}/.Xauthority" = {
+        hostPath = "/home/${username}/.Xauthority";
+        isReadOnly = false;
+      };
+    };
 
     config = { config, pkgs, ... }: {
       # Set environment variables at container level
-      environment = {
+      environment.variables = {
         JAVA_HOME = "${pkgs.jdk}";
         PATH = "${pkgs.jdk}/bin:${pkgs.docker}/bin:/bin";
         DISPLAY = ":0";
+        XAUTHORITY = "/home/${username}/.Xauthority";
       };
-
+      hardware = {
+        graphics = {
+          enable = true;
+          extraPackages = with pkgs; [
+            intel-compute-runtime
+            intel-media-driver # LIBVA_DRIVER_NAME=iHD
+            vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+            #vaapiVdpau
+            #libvdpau-va-gl
+          ];
+          # driSupport = true;
+        };
+      };
       # Block specific domains using iptables
       networking.firewall.extraCommands = ''
         iptables -I OUTPUT -p udp --dport 53 -m string --hex-string "|03|www|09|jetbrains|03|com|" --algo bm -j DROP
@@ -57,15 +79,18 @@ in {
 
       # Install necessary packages
       environment.systemPackages =
-        [ customJetbrains.idea-ultimate pkgs.docker pkgs.jdk ];
+        [ customJetbrains.idea-ultimate pkgs.docker pkgs.jdk pkgs.xorg.xauth ];
 
       users.users.${username} = {
         isNormalUser = true;
         uid = uid;
-        gid = gid;
+        group = group;
         extraGroups = [ "docker" ];
       };
-
+      
+      users.groups.${group} = {
+        gid = gid;
+      };
       # Enable Docker client (daemon runs on host)
       virtualisation.docker.enable = true;
     };
