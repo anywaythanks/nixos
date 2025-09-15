@@ -5,6 +5,8 @@
   htop = "btm";
   ls = "lsd";
   top = "btm";
+  c = "clear";
+
   # vi = "nvim";
   # vim = "nvim";
   ytop = "btm";
@@ -21,7 +23,7 @@
   "..." = "cd ../..";
   "...." = "cd ../../..";
   "....." = "cd ../../../..";
-
+  "-" = "cd -";
   # git;
   gl =
     "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";

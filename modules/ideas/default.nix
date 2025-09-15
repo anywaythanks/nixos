@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   jb-products = {
     idea-ultimate = {
@@ -30,13 +30,10 @@ let
     };
   };
 
-  ja-netfilter-jar = ./ja-netfilter.jar;
-
   wrappedJBProducts = lib.mapAttrs (name: value:
     let
-      vmoptionsFile = pkgs.writeTextFile {
-        name = "${name}-vmoptions";#ебаный хардкод, надо будет переделать
-        text = value.vmoptions + "\n\n-javaagent:/home/any/jetbra/ja-netfilter.jar=jetbrains";#"\n\n-javaagent:/home/any/.conifg/${name}/ja-netfilter.jar=jetbrains";
+      vmoptionsFile = pkgs.writeTextFile { 
+        text = value.vmoptions;
       };
     in pkgs.runCommand "${name}-wrapped" {
       nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -53,17 +50,8 @@ let
         cp -r ${value.pkg}/share/* $out/share/
       fi
     '') jb-products;
-  keys.url =
-    "https://ipfs.io/ipfs/bafybeih65no5dklpqfe346wyeiak6wzemv5d7z2ya7nssdgwdz4xrmdu6i/";
+   #keys = "https://ipfs.io/ipfs/bafybeih65no5dklpqfe346wyeiak6wzemv5d7z2ya7nssdgwdz4xrmdu6i/";
 in { 
   home.packages = lib.attrValues wrappedJBProducts;
 
-  #это все в функцию запихнуть
-  xdg.configFile."idea-ultimate/ja-netfilter.jar".source = ja-netfilter-jar;
-  # xdg.configFile."idea-ultimate/config-jetbrains".source = ./config-jetbrains;
-  # xdg.configFile."idea-ultimate/plugins-jetbrains".source = ./plugins-jetbrains;
-  # xdg.configFile."webstorm/ja-netfilter.jar".source = ./ja-netfilter.jar;
-  # xdg.configFile."webstorm/config-jetbrains".source = ./config-jetbrains;
-  # xdg.configFile."webstorm/plugins-jetbrains".source = ./plugins-jetbrains;
-  
  }

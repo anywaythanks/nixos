@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = { self, taffybar, nixpkgs, home-manager, nixvim }:
+  outputs = { self, taffybar, nixpkgs, home-manager, nixvim }@inputs:
     let
       home-common = { lib, ... }: {
         _module.args = {
@@ -52,7 +52,6 @@
         home.homeDirectory = "/home/any";
         home.username = "any";
         imports = [
-          nixvim.homeModules.nixvim
           # ./modules/discord
 
           # Desktop Environment
@@ -92,6 +91,7 @@
 
       homeConfigurations = {
         nixos = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { inherit inputs; };
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
           modules = [ home-common home-linux ];
         };
