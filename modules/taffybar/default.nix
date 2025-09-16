@@ -21,7 +21,7 @@ let
     custom-taffybar &
     eww open topbar-btw
     ${pkgs.xorg.xhost}/bin/xhost +local:${config.ideNetwork}
-  '';
+  '';#TODO: Надо перенести в другой скрипт. 
   custom-taffybar =
     (import ../../custom-programs/taffybar/default.nix) { inherit pkgs; };
 in {

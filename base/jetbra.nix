@@ -1,4 +1,31 @@
-#https://msucharski.eu/posts/application-isolation-nixos-containers/
+# https://msucharski.eu/posts/application-isolation-nixos-containers/
+# https://gist.github.com/nort3x/dde6757cb630afe052331e04ca1ab79e
+# https://gist.github.com/PathumRathnayaka/c8179784a89d4011d19099bf06813e68
+# https://boommanpro.cn/post/ja-netfilter
+
+# Ключи до 2099 года
+# https://ckey.run/ 
+
+# Быстрая активация линух
+# curl -sSL ckey.run | bash 
+# Винда
+# irm https://ckey.run/ | iex
+
+# source code malware
+# https://github.com/neKamita/ToolBox-Activator/
+# https://gitee.com/ja-netfilter/ja-netfilter/
+# https://gitee.com/ja-netfilter/plugin-native
+# https://gitee.com/ja-netfilter/plugin-dns
+# https://gitee.com/ja-netfilter/plugin-power
+# https://gitee.com/ja-netfilter/plugin-url
+# https://gitee.com/ja-netfilter/plugin-hideme
+
+# Код ниже загружает ide с модифицированной ссылки, которая все еще доступна в рф
+# Загружает малварь с его плагинами и создает папку для него
+# Подгружает vm параметры для каждого продукта с указанием папки малваря
+# Создает изолированный контейнер с private сетью
+# По nat соединяет её с хостовой сетью
+# Фильтрует сеть по white list и подменяет домен плагинов, чтобы работали в рф. 
 
 { config, lib, pkgs, ... }:
 let
@@ -7,15 +34,47 @@ let
   group = config.users.users.${username}.group;
   uid = config.users.users.${username}.uid;
   gid = config.users.groups.${group}.gid;
+  jaNetfilter = pkgs.stdenv.mkDerivation {
+    name = "ja-netfilter";
+    src = pkgs.fetchurl {
+      url =
+        "https://gitee.com/ja-netfilter/ja-netfilter/releases/download/2022.2.0/ja-netfilter-2022.2.0.zip";
+      sha256 = "04adqlwnfal3jiyjhgd6cp21vk0kc9w4rlm5yd8f1q3ggv2a6i4a";
+    };
+    nativeBuildInputs = [ pkgs.unzip ];
+    installPhase = ''
+      mkdir -p $out
+      unzip $src -d $out
+    '';
+  };
+  idea-ultimate = {
+    pkg = (pkgs.jetbrains.idea-ultimate.overrideAttrs (oldAttrs: rec {
+      version = "2024.3.5";
+      src = pkgs.fetchurl {
+        url = "https://download-cf.jetbrains.com/idea/ideaIU-${version}.tar.gz";
+        sha256 =
+          "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1";
+      };
+    }));
+  };
 in {
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "ve-jetbrainocPX" ];
+    externalInterface = "enp3s0";
+    enableIPv6 = true;
+  };
   containers.jetbrains-idea = {
     privateNetwork = true;
     hostAddress = "10.0.0.1";
     localAddress = config.ideNetwork;
 
-    # Enable Docker access by binding the socket
     bindMounts = {
-      "/dev/dri"= {
+      "/home/${username}/.config/JetBrains" = {
+        hostPath = "${jaNetfilter}";
+        isReadOnly = true;
+      };
+      "/dev/dri" = {
         hostPath = "/dev/dri";
         isReadOnly = false;
       };
@@ -31,12 +90,12 @@ in {
         hostPath = "/tmp";
         isReadOnly = false;
       };
-      # For X11 GUI applications
+
       "/tmp/.X11-unix" = {
         hostPath = "/tmp/.X11-unix";
         isReadOnly = true;
       };
-      # Home directory access (optional, for project files)
+
       "/home/${username}/Projects" = {
         hostPath = "/home/${username}/Projects";
         isReadOnly = false;
@@ -49,8 +108,9 @@ in {
     };
 
     config = { config, pkgs, ... }: {
-      # Set environment variables at container level
-      environment.variables = {
+      networking.useHostResolvConf = lib.mkForce false;
+      services.resolved.enable = true;
+      environment.sessionVariables = {
         JAVA_HOME = "${pkgs.jdk}";
         PATH = "${pkgs.jdk}/bin:${pkgs.docker}/bin:/bin";
         DISPLAY = ":0";
@@ -61,15 +121,12 @@ in {
           enable = true;
           extraPackages = with pkgs; [
             intel-compute-runtime
-            intel-media-driver # LIBVA_DRIVER_NAME=iHD
-            vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-            #vaapiVdpau
-            #libvdpau-va-gl
+            intel-media-driver
+            vaapiIntel
           ];
-          # driSupport = true;
         };
       };
-      # Block specific domains using iptables
+
       networking.firewall.extraCommands = ''
         iptables -I OUTPUT -p udp --dport 53 -m string --hex-string "|03|www|09|jetbrains|03|com|" --algo bm -j DROP
         iptables -I OUTPUT -p udp --dport 53 -m string --hex-string "|07|account|09|jetbrains|03|com|" --algo bm -j DROP
@@ -77,9 +134,18 @@ in {
         ip6tables -I OUTPUT -p udp --dport 53 -m string --hex-string "|07|account|09|jetbrains|03|com|" --algo bm -j DROP
       '';
 
-      # Install necessary packages
-      environment.systemPackages =
-        [ customJetbrains.idea-ultimate pkgs.docker pkgs.jdk pkgs.xorg.xauth ];
+      environment.systemPackages = with pkgs; [
+
+        docker
+        jdk
+        xorg.xauth
+        jdk
+        (jdk17.overrideAttrs (oldAttrs: { meta.priority = 10; }))
+        (jdk8.overrideAttrs (oldAttrs: { meta.priority = 10; }))
+        (jdk21.overrideAttrs (oldAttrs: { meta.priority = 10; }))
+
+        flix
+      ];
 
       users.users.${username} = {
         isNormalUser = true;
@@ -87,11 +153,9 @@ in {
         group = group;
         extraGroups = [ "docker" ];
       };
-      
-      users.groups.${group} = {
-        gid = gid;
-      };
-      # Enable Docker client (daemon runs on host)
+
+      users.groups.${group} = { gid = gid; };
+
       virtualisation.docker.enable = true;
     };
   };
