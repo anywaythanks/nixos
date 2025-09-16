@@ -57,6 +57,10 @@ let
       };
     }));
   };
+  vmoptionsFile = pkgs.writeTextFile {
+    text = (builtins.readFile ./ideas/idea.vmoptions)
+      + "\\n\\n-javaagent:/home/${username}/.conifg/JetBrains/ja-netfilter/ja-netfilter.jar=jetbrains";
+  };
 in {
   networking.nat = {
     enable = true;
@@ -72,6 +76,10 @@ in {
     bindMounts = {
       "/home/${username}/.config/JetBrains" = {
         hostPath = "${jaNetfilter}";
+        isReadOnly = true;
+      };
+      "/home/${username}/.config/JetBrains/idea.vmoptions" = {
+        hostPath = "${vmoptionsFile}";
         isReadOnly = true;
       };
       "/dev/dri" = {
@@ -115,6 +123,7 @@ in {
         PATH = "${pkgs.jdk}/bin:${pkgs.docker}/bin:/bin";
         DISPLAY = ":0";
         XAUTHORITY = "/home/${username}/.Xauthority";
+        IDEA_VM_OPTIONS = "/home/${username}/.config/JetBrains/idea.vmoptions";
       };
       hardware = {
         graphics = {
@@ -134,18 +143,16 @@ in {
         ip6tables -I OUTPUT -p udp --dport 53 -m string --hex-string "|07|account|09|jetbrains|03|com|" --algo bm -j DROP
       '';
 
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = with pkgs;
+        [
+          docker
+          jdk
+          (jdk17.overrideAttrs (oldAttrs: { meta.priority = 10; }))
+          (jdk8.overrideAttrs (oldAttrs: { meta.priority = 10; }))
+          (jdk21.overrideAttrs (oldAttrs: { meta.priority = 10; }))
 
-        docker
-        jdk
-        xorg.xauth
-        jdk
-        (jdk17.overrideAttrs (oldAttrs: { meta.priority = 10; }))
-        (jdk8.overrideAttrs (oldAttrs: { meta.priority = 10; }))
-        (jdk21.overrideAttrs (oldAttrs: { meta.priority = 10; }))
-
-        flix
-      ];
+          flix
+        ] ++ [ idea-ultimate ];
 
       users.users.${username} = {
         isNormalUser = true;
