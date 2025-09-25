@@ -59,11 +59,9 @@
           ./modules/neovim
           ./modules/desktop-environment.nix
           ./modules/betterlockscreen
-          # ./modules/deadd
+          # ./modules/dunst
           ./modules/eww
-          ./modules/ideas
           ./modules/libreoffice
-          # ./modules/blender
           ./modules/syncthing
           ./modules/posy-cursor
           ./modules/direnv

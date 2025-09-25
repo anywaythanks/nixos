@@ -33,6 +33,7 @@ let
   wrappedJBProducts = lib.mapAttrs (name: value:
     let
       vmoptionsFile = pkgs.writeTextFile { 
+        name = name;
         text = value.vmoptions;
       };
     in pkgs.runCommand "${name}-wrapped" {

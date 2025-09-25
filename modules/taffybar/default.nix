@@ -1,4 +1,4 @@
-{ pkgs, colorscheme, ... }:
+{ config, pkgs, colorscheme, ... }:
 let
   custom-panel-launch = pkgs.writeScriptBin "custom-panel-launch" ''
     #!/${pkgs.stdenv.shell}
@@ -8,7 +8,6 @@ let
     killall nm-applet
 
     eww daemon &
-    deadd-notification-center &
 
     nm-applet &
     nm-tray &
@@ -27,6 +26,7 @@ let
 in {
   home = {
     packages = with pkgs; [
+      xorg.xhost
       custom-panel-launch
       custom-taffybar
       haskellPackages.status-notifier-item

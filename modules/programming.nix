@@ -24,7 +24,7 @@
     (jdk17.overrideAttrs (oldAttrs: { meta.priority = 10; }))
     (jdk8.overrideAttrs (oldAttrs: { meta.priority = 10; }))
     (jdk21.overrideAttrs (oldAttrs: { meta.priority = 10; }))
-
+    github-desktop
     flix
     #    maven
     # client displayManager
