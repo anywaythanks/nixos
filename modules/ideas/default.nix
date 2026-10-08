@@ -70,17 +70,15 @@ let
     '';
   };
 
- jaNetfilter = pkgs.linkFarm "ja-netfilter" (
-    map (n: { name = n; path = "${jaNetfilterBase}/${n}"; })
-      (builtins.attrNames (builtins.readDir jaNetfilterBase))
-    ++
-    [
-      { name = "ja-netfilter/config/dns.conf";   path = dnsConfig; }
-      { name = "ja-netfilter/config/power.conf"; path = powerConfig; }
-      { name = "ja-netfilter/config/url.conf";   path = urlConfig; }
-    ]
-  );
-
+  jaNetfilter = pkgs.runCommand "ja-netfilter" {} ''
+    mkdir -p $out
+    cp -r ${jaNetfilterBase}/. $out/
+    chmod -R u+w $out
+    mkdir -p $out/ja-netfilter/config
+    cp ${dnsConfig}   $out/ja-netfilter/config/dns.conf
+    cp ${powerConfig} $out/ja-netfilter/config/power.conf
+    cp ${urlConfig}   $out/ja-netfilter/config/url.conf
+  '';
   mkVmoptions = name: value: pkgs.writeTextFile {
     name = "${name}-vmoptions";
     text = value.vmoptions + "\n-javaagent:${agentJar}=jetbrains\n";
@@ -110,7 +108,7 @@ let
    #keys = "https://ipfs.io/ipfs/bafybeih65no5dklpqfe346wyeiak6wzemv5d7z2ya7nssdgwdz4xrmdu6i/";
 in { 
   home.packages = lib.attrValues wrapped;
-  home.file.".config/JetBrains/activator".source = jaNetfilter;
+  home.file.".config/JetBrains/activator".source = jaNetfilterBase;
 
   home.sessionVariables = {
     JAVA_HOME = "${pkgs.jdk}";

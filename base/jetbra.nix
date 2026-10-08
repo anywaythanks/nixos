@@ -38,7 +38,7 @@ let
     name = "ja-netfilter";
     src = pkgs.fetchurl {
       url =
-        "https://gitee.com/ja-netfilter/ja-netfilter/releases/download/2022.2.0/ja-netfilter-2022.2.0.zip";
+        "https://gitee.com/ja-netfilter/ja-netfilter/releases/download/2025.3.0/ja-netfilter-2025.3.0.zip";
       sha256 = "04adqlwnfal3jiyjhgd6cp21vk0kc9w4rlm5yd8f1q3ggv2a6i4a";
     };
     nativeBuildInputs = [ pkgs.unzip ];
