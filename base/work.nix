@@ -11,11 +11,6 @@
     # openssl
     # ... other dependencies
   ];
-  networking.extraHosts =
-    ''
-      127.0.0.1 mercury
-      127.0.0.1 argus
-    '';
   boot.kernel.sysctl = {
     "net.ipv4.ip_unprivileged_port_start" = 80;
     "net.ipv4.ip_forward" = true;

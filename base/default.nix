@@ -8,6 +8,6 @@
       ./users.nix
       ./packages.nix
       ./work.nix
-      ./jetbra.nix
+      # ./jetbra.nix
     ];
 }

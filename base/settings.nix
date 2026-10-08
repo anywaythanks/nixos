@@ -19,7 +19,8 @@
       layout = "us, ru";
       options = "grp:caps_toggle";
     };
-
+    # Планшетик
+    digimend.enable = true;
     #Хрень для ускорения повторений при долгом нажатии
     autoRepeatDelay = 250;
     autoRepeatInterval = 35;
@@ -51,16 +52,6 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  services.openvpn.servers = {
-    workVPN = {
-      config = ''
-        config /home/any/vpns/profile-work.ovpn
-        auth-user-pass /home/any/vpns/work.cred
-      '';
-      autoStart = true;
-      updateResolvConf = true;
-    };
-  };
   # вмка
   # virtualisation.virtualbox.host.enable = true;
   # virtualisation.virtualbox.host.enableExtensionPack = true;
@@ -85,22 +76,37 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  hardware.bluetooth.enable = true;
-  #драйвера
   hardware = {
+    bluetooth.enable = true;
+    cpu.amd.updateMicrocode = true;
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        intel-compute-runtime
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        #vaapiVdpau
-        #libvdpau-va-gl
-      ];
-      # driSupport = true;
+      enable32Bit = true; # Нужно для 32-битных приложений и Steam
+    };
+    nvidia = {
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
+  #драйвера
+  # hardware = {
+  #   # graphics = {
+  #   #   enable = true;
+  #   #   extraPackages = with pkgs; [
+  #   #     intel-compute-runtime
+  #   #     intel-media-driver # LIBVA_DRIVER_NAME=iHD
+  #   #     vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+  #   #     #vaapiVdpau
+  #   #     #libvdpau-va-gl
+  #   #   ];
+  #   #   # driSupport = true;
+  #   # };
+  # };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   #Тырнет
   # networking.wireless.enable = true;
@@ -108,5 +114,19 @@
   networking = {
     hostName = "ZFS-Nixos";
     hostId = "a1c30cfd";
+  };
+
+  fileSystems."/home/any/windows" = {
+    device = "/dev/disk/by-uuid/485A83305A831A38";
+    fsType = "ntfs3";
+    options = [
+      "uid=1000"
+      "gid=100"
+      "umask=0022"              # права по умолчанию: rwxr-xr-x
+      "nofail"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.device-timeout=10"
+    ];
   };
 }

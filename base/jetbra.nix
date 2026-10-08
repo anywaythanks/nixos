@@ -165,7 +165,7 @@ in {
         isReadOnly = false;
       };
       "/var/run/docker.sock" = {
-        hostPath = "/var/run/docker.sock";
+        hostPath = "/run/user/${toString uid}/docker.sock";
         isReadOnly = false;
       };
       "/nix/store" = {
@@ -234,8 +234,6 @@ in {
       };
 
       users.groups.${group} = { gid = gid; };
-
-      virtualisation.docker.enable = true;
     };
   };
 }

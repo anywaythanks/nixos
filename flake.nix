@@ -59,7 +59,7 @@
           ./modules/neovim
           ./modules/desktop-environment.nix
           ./modules/betterlockscreen
-          # ./modules/dunst
+          ./modules/dunst
           ./modules/eww
           ./modules/libreoffice
           ./modules/syncthing
@@ -76,6 +76,7 @@
           ./modules/rofi
           ./modules/taffybar
           ./modules/xidlehook
+          ./modules/ideas
            # ./modules/docker
           ./modules/xmonad
         ];

@@ -9,5 +9,8 @@
     "workbench.colorTheme": "Darcula",
     "editor.minimap.enabled": false,
     "editor.fontFamily": "JetBrains Mono",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
 }

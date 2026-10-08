@@ -8,7 +8,7 @@ import Graphics.X11.ExtraTypes.XF86
   )
 import System.Posix.Process (forkProcess)
 import System.Process (spawnCommand, waitForProcess)
-import System.Taffybar.Support.PagerHints (pagerHints)
+import XMonad.Hooks.TaffybarPagerHints (pagerHints)
 import XMonad
 import XMonad.Actions.SpawnOn (spawnAndDo)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
@@ -115,46 +115,46 @@ myModMask = mod4Mask
 myTerminal :: String
 myTerminal = "alacritty"
 
-openWidgetsPanel :: String
-openWidgetsPanel =
-  unwords
-    [ "eww",
-      "open-many",
-      "--toggle",
-      "full-bg",
-      "full-profile",
-      "full-system",
-      "full-clock",
-      "full-uptime",
-      "full-music",
-      "full-github",
-      "full-reddit",
-      -- "full-twitter",
-      "full-youtube",
-      "full-weather",
-      "full-apps",
-      "full-mail",
-      "full-nix_search",
-      "full-goodreads",
-      "full-logout",
-      "full-sleep",
-      "full-reboot",
-      "full-poweroff",
-      "full-folders"
-    ]
+-- openWidgetsPanel :: String
+-- openWidgetsPanel =
+--   unwords
+--     [ "eww",
+--       "open-many",
+--       "--toggle",
+--       "full-bg",
+--       "full-profile",
+--       "full-system",
+--       "full-clock",
+--       "full-uptime",
+--       "full-music",
+--       "full-github",
+--       "full-reddit",
+--       -- "full-twitter",
+--       "full-youtube",
+--       "full-weather",
+--       "full-apps",
+--       "full-mail",
+--       "full-nix_search",
+--       "full-goodreads",
+--       "full-logout",
+--       "full-sleep",
+--       "full-reboot",
+--       "full-poweroff",
+--       "full-folders"
+--     ]
 
-openPowerMenu :: String
-openPowerMenu =
-  unwords
-    [ "eww",
-      "open-many",
-      "--toggle",
-      "powermenu-bg",
-      "powermenu-logout",
-      "powermenu-sleep",
-      "powermenu-reboot",
-      "powermenu-poweroff"
-    ]
+-- openPowerMenu :: String
+-- openPowerMenu =
+--   unwords
+--     [ "eww",
+--       "open-many",
+--       "--toggle",
+--       "powermenu-bg",
+--       "powermenu-logout",
+--       "powermenu-sleep",
+--       "powermenu-reboot",
+--       "powermenu-poweroff"
+--     ]
 
 toggleFloat :: Window -> X ()
 toggleFloat w =
@@ -175,9 +175,9 @@ keysToAdd = launchers ++ multimediaKeys ++ layoutRelated
         ( (myModMask, xK_c),
           namedScratchpadAction myScratchPads "terminal"
         ),
-        ( (myModMask .|. shiftMask, xK_p),
-          spawn openPowerMenu
-        ),
+        -- ( (myModMask .|. shiftMask, xK_p),
+        --   spawn openPowerMenu
+        -- ),
         ( (myModMask .|. shiftMask, xK_l),
           spawn "betterlockscreen --wall -blur -l"
         ),
@@ -187,9 +187,9 @@ keysToAdd = launchers ++ multimediaKeys ++ layoutRelated
         ( (myModMask .|. shiftMask, xK_n),
           spawn "kill -s USR1 $(pidof deadd-notification-center)"
         ),
-        ( (myModMask .|. controlMask, xK_w),
-          spawn openWidgetsPanel
-        ),
+        -- ( (myModMask .|. controlMask, xK_w),
+        --   spawn openWidgetsPanel
+        -- ),
         ( (myModMask, xK_s),
           spawn "flameshot-gui"
         ),
