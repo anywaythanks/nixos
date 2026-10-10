@@ -39,7 +39,7 @@ let
     src = pkgs.fetchurl {
       url =
         "https://gitee.com/ja-netfilter/ja-netfilter/releases/download/2025.3.0/ja-netfilter-2025.3.0.zip";
-      sha256 = "04adqlwnfal3jiyjhgd6cp21vk0kc9w4rlm5yd8f1q3ggv2a6i4a";
+      sha256 = "194n4pxra1hgrhl5gkqb4rrnvx938zfr1rl67hs209x5mrlbxd48";
     };
     nativeBuildInputs = [ pkgs.unzip ];
     installPhase = ''

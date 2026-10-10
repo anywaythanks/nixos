@@ -8,6 +8,7 @@
       ./users.nix
       ./packages.nix
       ./work.nix
+      ./vpn.nix
       # ./jetbra.nix
     ];
 }
