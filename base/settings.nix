@@ -36,15 +36,7 @@
         waitPID=$!
       '';
     }];
-    #ускорениее
-    config = ''
-      Section "Device"
-        Identifier "Intel Graphics"
-        Driver "intel"
-        Option "TripleBuffer" "true"
-        Option "TearFree" "true"
-      EndSection
-    '';
+   
     exportConfiguration = true;
   };
   #автомонтирование
@@ -88,7 +80,8 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
     };
   };
   #драйвера

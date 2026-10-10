@@ -1,8 +1,8 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
-  programs.nixvim.config = {
+  imports = [ inputs.nixvim.homeModules.nixvim ];
+  programs.nixvim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;

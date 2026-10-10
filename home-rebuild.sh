@@ -1,1 +1,1 @@
-dbus-launch nix run home-manager --no-write-lock-file switch -- --flake "./#nixos"
+dbus-launch nix run home-manager --show-trace --no-write-lock-file switch -- --flake "./#nixos"

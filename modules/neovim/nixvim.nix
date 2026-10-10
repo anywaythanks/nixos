@@ -6,7 +6,7 @@
     viAlias = true;
     vimAlias = true;
 
-    options = {
+    opts = {
       number = true;
       relativenumber = true;
       clipboard = "unnamedplus";
@@ -20,7 +20,9 @@
     plugins = {
       lightline = {
         enable = true;
-        colorscheme = "darculaOriginal";
+        settings = {
+          colorscheme = "darculaOriginal";
+        };
       };
       nerdtree.enable = true; # Plug 'preservim/nerdtree'
       delimitMate.enable = true; # Plug 'Raimondi/delimitMate'

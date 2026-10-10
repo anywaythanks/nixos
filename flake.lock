@@ -39,7 +39,25 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -99,6 +117,56 @@
         "type": "github"
       }
     },
+    "ixx": {
+      "inputs": {
+        "flake-utils": [
+          "nixvim",
+          "nuschtosSearch",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixvim",
+          "nuschtosSearch",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781955583,
+        "narHash": "sha256-qJjGESnkXp1No6QyI9BjtEHstwtZE8zqLuIBwxE1ugI=",
+        "owner": "NuschtOS",
+        "repo": "ixx",
+        "rev": "86a7f2126da859b62d68378e90a052655fa8da01",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "ref": "v0.2.3",
+        "repo": "ixx",
+        "type": "github"
+      }
+    },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixvim",
+          "nuschtosSearch",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788680125,
+        "narHash": "sha256-amGSoDobwmp4CFvCn841ws2iuitus+HUJdD/gKgsrJA=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "116ad1c2adb642405ef8916f6a94c8626f971344",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1768649915,
@@ -111,6 +179,22 @@
       "original": {
         "owner": "nixos",
         "ref": "release-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1791456040,
+        "narHash": "sha256-H83yz/do+hjOO0uujHyH8RgtIQP2v7Mw+cLwcZK/xKc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -137,19 +221,45 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems"
+        "nuschtosSearch": "nuschtosSearch",
+        "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1791574898,
-        "narHash": "sha256-hZbiKS5wzcqoKR0xwzxhJAyp1JuTL2CloYON040FJNk=",
+        "lastModified": 1768475029,
+        "narHash": "sha256-zEyZ8bMOzXkwpIizl8xtWoP2w2fiZ0bbrIt7DxjQgME=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "2c6d56d2df7c159ef629871cfd673de237e1fc38",
+        "rev": "b3dc2bc58fa548bed299b501ed506ef8dad77f63",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "nixos-25.05",
         "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "nuschtosSearch": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "ixx": "ixx",
+        "nix-index-database": "nix-index-database",
+        "nixpkgs": [
+          "nixvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789386647,
+        "narHash": "sha256-xIYrxLLccbVCgTLLOjdenF3M9wlO2Hty/JC27P03h8g=",
+        "owner": "NuschtOS",
+        "repo": "search",
+        "rev": "cbdbeef58566d5107808b467832c2203387c2dec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "repo": "search",
         "type": "github"
       }
     },
@@ -177,12 +287,27 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "taffybar": "taffybar"
       }
     },
     "systems": {
-      "flake": false,
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1791244623,
         "narHash": "sha256-uuanbkFk8a313Zfrxdcz8Us/yQtaxNnKJtX8v0ZPpd8=",
@@ -193,12 +318,11 @@
       },
       "original": {
         "owner": "nix-systems",
-        "ref": "future-26.11",
         "repo": "default",
         "type": "github"
       }
     },
-    "systems_2": {
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -215,7 +339,7 @@
     },
     "taffybar": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -224,11 +348,11 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1790862426,
-        "narHash": "sha256-N3x3CMcc6kYaEeebg08RrEuItGfa6x0Fa0G4yo8g4YY=",
+        "lastModified": 1791608159,
+        "narHash": "sha256-6wfGdpOUpJv6IQ/xTCKDKDi+FkaTCOScnu2tIqKS6sM=",
         "owner": "taffybar",
         "repo": "taffybar",
-        "rev": "418571d4f8e6a6aa939f1fcf3e233ee2f220e219",
+        "rev": "01d777acfaab22aa218f513f4214a511c84c4e1d",
         "type": "github"
       },
       "original": {
