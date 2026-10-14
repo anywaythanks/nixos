@@ -152,7 +152,7 @@ in {
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.xray}/bin/xray run -c ${xrayConfig}";
+      ExecStart = "${pkgsUnstable.xray}/bin/xray run -c ${xrayConfig}";
       Restart = "on-failure";
       RestartSec = "5s";
       User = "root";

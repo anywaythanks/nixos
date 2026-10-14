@@ -59,7 +59,6 @@
 
           # Desktop Environment
           ./modules/neovim
-          ./modules/vpn
           ./modules/desktop-environment.nix
           ./modules/betterlockscreen
           ./modules/dunst
@@ -90,16 +89,28 @@
       nixosConfigurations.ZFS-Nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
-          ./configuration.nix 
           ({ pkgs, ... }: {
             _module.args.pkgsUnstable = import nixpkgs-unstable {
               inherit (pkgs.stdenv.hostPlatform) system;
               inherit (pkgs.config) allowUnfree;
             };
           })
+          ./configuration.nix
         ];
       };
-
+      nixosConfigurations.minimal-vm = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+         modules = [
+          ({ pkgs, ... }: {
+            _module.args.pkgsUnstable = import nixpkgs-unstable {
+              inherit (pkgs.stdenv.hostPlatform) system;
+              inherit (pkgs.config) allowUnfree;
+            };
+          })
+          "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+          ./modules/vm-kernel
+         ]
+      }
       homeConfigurations = {
         nixos = home-manager.lib.homeManagerConfiguration {
           extraSpecialArgs = { inherit inputs; };
@@ -109,6 +120,3 @@
       };
     };
 }
-
-
-#grid
